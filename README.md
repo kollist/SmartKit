@@ -34,13 +34,19 @@ ModelAvailability.current() // -> SmartKitAvailability
 
 ## Installation
 
-Add SmartKit as a Swift Package dependency:
+### Swift Package Manager
 
 ```swift
-.package(url: "https://github.com/<you>/SmartKit.git", from: "1.0.0")
+.package(url: "https://github.com/kollist/SmartKit.git", from: "0.1.0")
 ```
 
-Minimum platforms: iOS 17, macOS 14, visionOS 1. (You don't need iOS 26 to adopt the package — you just won't get on-device AI on older OS versions, you'll get the fallback.)
+### CocoaPods
+
+```ruby
+pod 'SmartKit', :git => 'https://github.com/kollist/SmartKit.git', :tag => '0.1.0'
+```
+
+Minimum platforms: iOS 17, macOS 14 (SPM also supports visionOS 1; the CocoaPods spec sticks to iOS/macOS since CocoaPods' validation doesn't currently have a visionOS simulator). You don't need iOS 26 to adopt the package — you just won't get on-device AI on older OS versions, you'll get the fallback.
 
 ## Usage
 
@@ -72,10 +78,10 @@ Both views drive themselves off a `.task`, so they regenerate automatically when
 
 ## How the fallback behaves
 
-| Component | On-device AI | Fallback |
-|---|---|---|
-| `SummaryView` | Streamed 2-3 sentence summary | First whole sentences truncated to ~240 characters |
-| `SmartTagView` | Items grouped into model-chosen categories | A single "All Items" group, with a label noting smart categorization is unavailable |
+| Component      | On-device AI                                | Fallback                                                                             |
+| --------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `SummaryView`  | Streamed 2-3 sentence summary                | First whole sentences truncated to ~240 characters                                  |
+| `SmartTagView` | Items grouped into model-chosen categories   | A single "All Items" group, with a label noting smart categorization is unavailable |
 
 Both fallbacks are deliberately simple rather than trying to fake intelligence with keyword heuristics — a confidently wrong guess is worse than an honest "this is degraded."
 
